@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flg-N8-pOU">
+                                <state key="normal" title="删除"/>
+                                <connections>
+                                    <action selector="delete:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4hZ-Uw-Wgc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltt-nM-38o">
+                                <state key="normal" title="修改"/>
+                                <connections>
+                                    <action selector="update:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UZP-60-CRL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JFn-wp-NpC">
+                                <state key="normal" title="查询"/>
+                                <connections>
+                                    <action selector="query:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1un-4s-wS7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7w2-bb-Qxm">
+                                <state key="normal" title="增加"/>
+                                <connections>
+                                    <action selector="add:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bqb-fp-JG8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeS-tt-08d">
+                                <state key="normal" title="修改表名"/>
+                                <connections>
+                                    <action selector="rename:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wWK-ya-heR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6RA-vJ-ntU">
+                                <state key="normal" title="添加属性"/>
+                                <connections>
+                                    <action selector="addProperty:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xuU-sx-xKI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCz-6H-YaR">
+                                <state key="normal" title="新建表"/>
+                                <connections>
+                                    <action selector="createTable:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hUW-Hb-Suw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MzV-dC-fRj">
+                                <state key="normal" title="删除表"/>
+                                <connections>
+                                    <action selector="deleteTable:" destination="BYZ-38-t0r" eventType="touchUpInside" id="37o-HA-g9J"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="JFn-wp-NpC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Qj-s0-EFE"/>
+                            <constraint firstItem="JFn-wp-NpC" firstAttribute="top" secondItem="ltt-nM-38o" secondAttribute="bottom" constant="20" id="553-h8-J4y"/>
+                            <constraint firstItem="6RA-vJ-ntU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EDT-P9-NBd"/>
+                            <constraint firstItem="flg-N8-pOU" firstAttribute="top" secondItem="7w2-bb-Qxm" secondAttribute="bottom" constant="20" id="HCT-Me-cSS"/>
+                            <constraint firstItem="7w2-bb-Qxm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SZN-nT-xSo"/>
+                            <constraint firstItem="XCz-6H-YaR" firstAttribute="top" secondItem="6RA-vJ-ntU" secondAttribute="bottom" constant="20" id="T39-3I-4K5"/>
+                            <constraint firstItem="ltt-nM-38o" firstAttribute="top" secondItem="flg-N8-pOU" secondAttribute="bottom" constant="20" id="YBy-g6-79K"/>
+                            <constraint firstItem="MzV-dC-fRj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="c3w-3s-028"/>
+                            <constraint firstItem="7w2-bb-Qxm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="cx5-Fv-zBb"/>
+                            <constraint firstItem="MzV-dC-fRj" firstAttribute="top" secondItem="XCz-6H-YaR" secondAttribute="bottom" constant="20" id="hGn-ob-9BZ"/>
+                            <constraint firstItem="DeS-tt-08d" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jP6-it-2t0"/>
+                            <constraint firstItem="6RA-vJ-ntU" firstAttribute="top" secondItem="DeS-tt-08d" secondAttribute="bottom" constant="20" id="ksd-fg-Lam"/>
+                            <constraint firstItem="XCz-6H-YaR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pvr-ns-SXn"/>
+                            <constraint firstItem="DeS-tt-08d" firstAttribute="top" secondItem="JFn-wp-NpC" secondAttribute="bottom" constant="20" id="xNI-Fj-UCV"/>
+                            <constraint firstItem="ltt-nM-38o" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xfW-2z-jnN"/>
+                            <constraint firstItem="flg-N8-pOU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zC9-wL-D2L"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="46" y="157"/>
+        </scene>
+    </scenes>
+</document>
