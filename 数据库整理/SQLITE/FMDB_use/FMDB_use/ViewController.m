@@ -68,7 +68,7 @@
 }
 
 - (void)createAndOpenDatabase {
-    NSString *path = @"/Users/ddn/Desktop/数据库整理/SQLITE/FMDB_use/tmp.sqlite";
+    NSString *path = @"/Users/ddn/Desktop/My Github/sqlite-fmdb_summary/数据库整理/SQLITE/FMDB_use/tmp.sqlite";
     
     //1.如果文件不存在则创建
     //2.如果path==@"",则会创建一个临时的数据库在硬盘上，断开连接后自动删除
@@ -117,19 +117,25 @@
     
     [_database beginTransaction];
     
-    BOOL insert = [_database executeUpdate:@"insert into t_stu (name, age, score, sex) values(?, ?, ?, ?)", _nameTextField.text, @(_ageTextField.text.integerValue), @(_scoreTextField.text.floatValue), _sexTextField.text];
+    int i = 10000;
+    while (i > 0) {
+        i --;
+        BOOL insert = [_database executeUpdate:@"insert into t_stu (name, age, score, sex) values(?, ?, ?, ?)", _nameTextField.text, @(_ageTextField.text.integerValue), @(_scoreTextField.text.floatValue), _sexTextField.text];
+        
+        Student *student = [Student new];
+        student.name = _nameTextField.text;
+        student.sex = _sexTextField.text;
+        student.age = _ageTextField.text.intValue;
+        student.score = _scoreTextField.text.doubleValue;
+        
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:student];
+        
+        BOOL insert2 = [_database executeUpdate:@"insert into t_student (student) values(?)", data];
+        
+        if (!(insert && insert2)) break;
+    }
     
-    Student *student = [Student new];
-    student.name = _nameTextField.text;
-    student.sex = _sexTextField.text;
-    student.age = _ageTextField.text.intValue;
-    student.score = _scoreTextField.text.doubleValue;
-    
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:student];
-    
-    BOOL insert2 = [_database executeUpdate:@"insert into t_student (student) values(?)", data];
-    
-    if (insert && insert2) {
+    if (i == 0) {
         [_database commit];
     } else {
         [_database rollback];
@@ -162,8 +168,8 @@
 //    NSDictionary *params = @{@"name": _nameTextField.text, @"age": @(_ageTextField.text.intValue), @"score": @(_scoreTextField.text.doubleValue), @"sex": _sexTextField.text};
 //    BOOL insert = [_database executeUpdate:@"insert into t_stu (name, age, score, sex) values(:name, :age, :score, :sex)" withParameterDictionary:params];
     
-    if (!insert)
-        return NSLog(@"插入数据库失败");
+//    if (!insert)
+//        return NSLog(@"插入数据库失败");
     
     if (![_database close])
         return NSLog(@"关闭数据库失败:%@", [_database lastErrorMessage]);
@@ -199,13 +205,44 @@
 }
 
 - (IBAction)queue {
-    _databaseQueue = [FMDatabaseQueue databaseQueueWithPath:@"/Users/ddn/Desktop/数据库整理/SQLITE/FMDB_use/tmp.sqlite"];
+#warning queue是串行队列，执行顺序会按照任务的添加顺序执行，但是数据库不会出现并发操作，所以放到queue中是安全的
+    _databaseQueue = [FMDatabaseQueue databaseQueueWithPath:@"/Users/ddn/Desktop/My Github/sqlite-fmdb_summary/数据库整理/SQLITE/FMDB_use/tmp.sqlite"];
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-        
+        [_databaseQueue inDatabase:^(FMDatabase *db) {
+            [db executeUpdate:@"update t_stu set age = ?, sex = 'female'", @24];
+        }];
     });
-    [_databaseQueue inDatabase:^(FMDatabase *db) {
-        
-    }];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+        [_databaseQueue inDatabase:^(FMDatabase *db) {
+            [db executeUpdate:@"update t_stu set age = ?, sex = 'female'", @23];
+        }];
+    });
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+        [_databaseQueue inDatabase:^(FMDatabase *db) {
+            FMResultSet *set = [db executeQuery:@"select * from t_stu"];
+            int i = 0;
+            while (set.next) {
+                i ++;
+                NSLog(@"%@", set.resultDictionary);
+            }
+            NSLog(@"%d",i);
+        }];
+    });
+    
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+        [_databaseQueue inDatabase:^(FMDatabase *db) {
+            [db executeUpdate:@"update t_stu set age = ?, sex = 'female'", @18];
+        }];
+    });
+    
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+        [_databaseQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+            BOOL update1 = [db executeUpdate:@"update t_stu set age = ?", @20];
+            BOOL update2 = [db executeUpdate:@"update t_stu set age = ?, sex = 'female'", @19];
+            *rollback = !(update1 && update2);
+            NSLog(@"%d", *rollback);
+        }];
+    });
 }
 
 @end
